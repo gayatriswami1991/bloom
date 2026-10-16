@@ -7,3 +7,6 @@
 - **Celebrity block:** add photos to `assets/celeb/` (or paste URLs in `CELEB_URLS`) and re-run `build.py`. The section stays hidden while empty.
 - Tracking events pushed to `dataLayer`: `lp_call`, `lp_whatsapp`, `lp_step1`, `lp_step3`, `lp_lead`, `lp_guide`, `lp_reel`, `lp_concern`. Paste GTM/Ads/Pixel snippets at the marked comment in `<head>`.
 - Pages are `noindex`; remove that meta to allow indexing.
+
+## Sharing a single file (email / WhatsApp)
+`python3 share.py` writes `share/Bloom_Landing_English.html` and `share/Bloom_Landing_Marathi.html`: every local photo, the guide PDF and short 20-second reel clips are embedded, so one file shows everything with no folder. Photos hosted on bloomhairtransplant.com and YouTube thumbnails still need an internet connection.
