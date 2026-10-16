@@ -29,7 +29,7 @@ def site(url):
     return "assets/site/" + local.name if local.exists() else url
 
 
-LOGO, DOCTOR = site(LOGO0), site(DOCTOR0)
+LOGO, DOCTOR = ("assets/img/logo.png" if (HERE / "assets" / "img" / "logo.png").exists() else site(LOGO0)), site(DOCTOR0)
 BA = [(site(a), site(z)) for a, z in BA0]
 
 

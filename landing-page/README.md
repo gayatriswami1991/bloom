@@ -7,7 +7,8 @@ Two static pages, no framework, no build step needed to deploy.
 | `index.html` | English landing page |
 | `mr.html` | Marathi landing page |
 | `guide-en.pdf`, `guide-mr.pdf` | Lead-magnet PDFs (direct download, no form) |
-| `assets/img/` | Photos (frames from Bloom's reels), `assets/reels/` reel clips + posters, `assets/celeb/` award/event photos |
+| `assets/source/` | Source material: all reel frames and website screenshots (not loaded by the pages) |
+| `assets/img/` | Photos (frames from Bloom's reels), `logo.png`, `assets/reels/` reel clips + posters, `assets/celeb/` award/event photos |
 | `share/` | Single-file builds with everything embedded (for emailing / previews) |
 
 ## Deploy
