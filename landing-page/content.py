@@ -102,6 +102,16 @@ EN = dict(
     foot="&copy; Bloom Hair Transplant. Results vary from person to person. This page is general information, not medical advice. A consultation and examination are required before any procedure.", privacy="Privacy Policy",
     sb_call="Call", sb_wa="WhatsApp", sb_go="Assessment",
     x_title="Wait! Get the free guide first", x_sub="Take the 60-second assessment and download the Mumbai Hair Transplant Guide.", x_cta="Start now",
+
+    cta_call="Call " + PHONE_DISPLAY, cta_wa="WhatsApp us",
+    announce="Free 60-second hair assessment + guide  ·  Call " + PHONE_DISPLAY + "  ·  Mon–Sat 10 AM – 8 PM",
+    typed=["receding hairlines", "crown thinning", "beard and moustache gaps", "sparse eyebrows", "a past transplant you are unhappy with", "female hair thinning"], typed_pre="Natural-looking results for",
+    stat_items=[("4.9", "Google rating", 1), ("407", "Google reviews", 0), ("2", "Clinics in Mumbai", 0), ("7", "Procedures explained below", 0)],
+    qa_tag="Quick answer", qa_title="What is a hair transplant?",
+    qa_text="A hair transplant moves healthy hair follicles from a donor area, usually the back and sides of the scalp, to thinning or bald areas. Because donor hair resists hair loss, the transplanted hair keeps growing. Results appear gradually and are complete in about 9 to 12 months.",
+    facts=[("Anaesthesia", "Local anaesthesia"), ("Full result", "About 9–12 months"), ("Typical cost", "About ₹30,000 to ₹1,50,000 or more, based on grafts and technique"), ("Usually suitable from", "Around 21 years, with stable hair loss")],
+    cmp_title="FUE vs DHI vs FUT at a glance", cmp_th=["", "FUE", "DHI", "FUT (strip)"],
+    cmp_rows=[("Extraction", "One follicle at a time", "One follicle at a time", "A thin strip of scalp"), ("Placement", "Channels, then grafts placed", "Implanter pen places directly", "Dissected grafts placed"), ("Marks", "Tiny dots", "Tiny dots", "A fine linear scar"), ("Often considered for", "Most patients, short hair", "Fine hairline detail", "Many grafts, hair worn long")],
     wa_hello="Hello Bloom Hair Transplant, I would like a consultation.",
 )
 
@@ -203,5 +213,15 @@ MR = dict(
     foot="&copy; ब्लूम हेअर ट्रान्सप्लांट. निकाल प्रत्येक व्यक्तीनुसार वेगळे असतात. हे पान सर्वसाधारण माहिती आहे, वैद्यकीय सल्ला नाही. कोणतीही प्रक्रिया करण्यापूर्वी सल्ला आणि तपासणी आवश्यक आहे.", privacy="गोपनीयता धोरण",
     sb_call="कॉल", sb_wa="व्हॉट्सॲप", sb_go="तपासणी",
     x_title="थांबा! आधी मोफत गाईड घ्या", x_sub="६० सेकंदांची तपासणी करा आणि मुंबई हेअर ट्रान्सप्लांट गाईड डाउनलोड करा.", x_cta="आत्ता सुरू करा",
+
+    cta_call="कॉल करा " + PHONE_DISPLAY, cta_wa="व्हॉट्सॲप करा",
+    announce="६० सेकंदांची मोफत केस तपासणी + गाईड  ·  कॉल करा " + PHONE_DISPLAY + "  ·  सोम–शनि सकाळी १० ते रात्री ८",
+    typed=["कपाळावरचे कमी होणारे केस", "डोक्याच्या मध्यभागी विरळपणा", "दाढी आणि मिशीतील रिकाम्या जागा", "विरळ भुवया", "आधीच्या असमाधानकारक ट्रान्सप्लांटसाठी", "महिलांचे केस विरळ होणे"], typed_pre="नैसर्गिक दिसणारे निकाल:",
+    stat_items=[("4.9", "गुगल रेटिंग", 1), ("407", "गुगल रिव्ह्यूज", 0), ("2", "मुंबईत क्लिनिक्स", 0), ("7", "खाली समजावलेल्या प्रक्रिया", 0)],
+    qa_tag="थोडक्यात उत्तर", qa_title="हेअर ट्रान्सप्लांट म्हणजे काय?",
+    qa_text="हेअर ट्रान्सप्लांटमध्ये निरोगी केसांचे फॉलिकल्स डोनर भागातून, साधारणपणे डोक्याच्या मागच्या आणि बाजूच्या भागातून, विरळ किंवा टक्कल पडलेल्या भागात लावले जातात. डोनर केस गळतीला प्रतिरोधक असल्याने ट्रान्सप्लांट केलेले केस वाढत राहतात. निकाल हळूहळू दिसतो आणि साधारण ९ ते १२ महिन्यांत पूर्ण होतो.",
+    facts=[("भूल", "लोकल ॲनेस्थेशिया"), ("पूर्ण निकाल", "साधारण ९–१२ महिने"), ("साधारण खर्च", "ग्राफ्ट्स आणि तंत्रानुसार साधारण ₹३०,००० ते ₹१,५०,००० किंवा जास्त"), ("साधारणपणे योग्य वय", "साधारण २१ वर्षांपासून, केस गळती स्थिर असल्यास")],
+    cmp_title="FUE, DHI आणि FUT एका नजरेत", cmp_th=["", "FUE", "DHI", "FUT (पट्टी)"],
+    cmp_rows=[("फॉलिकल्स काढणे", "एकेक फॉलिकल", "एकेक फॉलिकल", "त्वचेची पातळ पट्टी"), ("लावण्याची पद्धत", "चॅनेल करून ग्राफ्ट्स लावतात", "इम्प्लांटर पेनने थेट लावतात", "वेगळे केलेले ग्राफ्ट्स लावतात"), ("खुणा", "बारीक ठिपके", "बारीक ठिपके", "बारीक रेषेसारखी खूण"), ("केव्हा विचारात घेतात", "बहुतेक रुग्ण, छोटे केस", "सूक्ष्म हेअरलाइन", "जास्त ग्राफ्ट्स, केस मोठे ठेवणारे")],
     wa_hello="नमस्कार ब्लूम हेअर ट्रान्सप्लांट, मला सल्ला भेट हवी आहे.",
 )

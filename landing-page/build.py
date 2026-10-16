@@ -11,6 +11,8 @@ from content import EN, MR, PHONE_DISPLAY, PHONE_TEL, PHONE_WA
 
 # ------------------------------------------------------------- CONFIG
 FORM_ENDPOINT = ""   # Zoho / Apps Script / Formspree URL. Empty = result screen shows a 1-tap "Send details on WhatsApp" button.
+BASE_URL = ""        # Final public folder URL of these pages, e.g. "https://bloomhairtransplant.com/lp/". Empty = pages stay noindex (safe for ads-only use).
+                     # When set: pages become indexable with canonical + hreflang + JSON-LD (good for SEO/AEO).
 CELEB_URLS = []      # e.g. ["https://bloomhairtransplant.com/wp-content/uploads/....jpg"]
 SITE = "https://bloomhairtransplant.com"
 UP = SITE + "/wp-content/uploads/"
@@ -72,7 +74,7 @@ img,video,svg{max-width:100%;display:block}a{color:inherit;text-decoration:none}
 .top .wrap{display:flex;align-items:center;justify-content:space-between;height:66px;gap:10px}.top img{height:40px;width:auto}
 .top .ac{display:flex;gap:10px;align-items:center}.top .btn{padding:10px 18px;font-size:14px}.lang{font-size:13.5px;font-weight:700;color:var(--gold);border:1px solid var(--line);padding:8px 13px;border-radius:99px}
 .hero{padding:40px 0 70px;overflow:hidden;background:radial-gradient(900px 500px at 10% -10%,rgba(201,162,75,.28),transparent 60%),radial-gradient(700px 500px at 100% 100%,rgba(201,162,75,.16),transparent 60%),var(--bg)}
-.hero .g{display:grid;grid-template-columns:1.05fr .95fr;grid-template-areas:"a q" "b q";gap:0 44px;align-items:start}.hc1{grid-area:a}.hc2{grid-area:b}.hero .quiz{grid-area:q}
+.hero .g{display:grid;grid-template-columns:1.05fr .95fr;grid-template-areas:"a q" "b q";gap:0 44px;align-items:start}.hc1{grid-area:a}.hc2{grid-area:b}.hc2 .cta-row{margin-bottom:6px}.hero .quiz{grid-area:q}
 .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;color:var(--gold);background:#fff;border:1px solid var(--line);padding:7px 15px;border-radius:99px}
 .eyebrow i{width:8px;height:8px;border-radius:50%;background:#2fe38a;animation:blink 1.4s infinite}@keyframes blink{50%{opacity:.25}}
 .hero h1{font-size:clamp(34px,5vw,58px);margin:20px 0 16px;letter-spacing:-.5px}.hero h1 .a{display:block;color:var(--tx)}
@@ -161,7 +163,30 @@ footer{padding:34px 0 110px;text-align:center;font-size:13px;color:var(--mut);bo
 .md .bx{background:var(--cream);color:#231808;border-radius:24px;padding:30px;max-width:420px;text-align:center;position:relative;animation:pop .35s}.md h3{font:800 24px var(--bf);margin-bottom:8px}.md p{color:#5b4a2a;margin-bottom:18px}.md .x{position:absolute;right:14px;top:8px;border:0;background:0;font-size:28px;cursor:pointer;color:#7a6a4c}
 .rv-up{opacity:0;transform:translateY(34px);transition:opacity .8s,transform .8s}.rv-up.in{opacity:1;transform:none}
 .glow{position:fixed;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(230,196,119,.12),transparent 65%);pointer-events:none;z-index:0;transform:translate(-50%,-50%)}
-@media(max-width:900px){.hero .g{grid-template-areas:"a" "q" "b";gap:22px 0;grid-template-columns:1fr}section{padding:56px 0}.hero{padding-top:26px}.tp.on,.gd .g,.doc .g,.lg{grid-template-columns:1fr}.kg,.rj,.cg{grid-template-columns:1fr 1fr}.yg{grid-template-columns:1fr 1fr}.sg,.tl{grid-template-columns:1fr 1fr;row-gap:34px}.tl::before{display:none}.sb{display:flex}.fab,.glow{display:none}.top .btn.hide-m{display:none}.collage{display:none}.tp{padding:18px}.tp .vis{min-height:240px}.rvg{grid-template-columns:1fr}}
+
+.prog{position:fixed;top:0;left:0;height:4px;width:0;background:linear-gradient(90deg,#c9a24b,#875f17,#f3d98f);z-index:100;transition:width .1s}
+.ann{background:#231808;color:#f3d98f;text-align:center;font-size:13px;font-weight:600;padding:8px 12px;letter-spacing:.2px}.ann a{color:#fff;text-decoration:underline}
+.typed{display:block;margin:2px 0 14px;font-weight:700;color:var(--gold);font-size:clamp(16px,2.2vw,21px);min-height:1.6em}.typed b{border-right:2px solid var(--gold);padding-right:3px;animation:caret .8s steps(1) infinite}@keyframes caret{50%{border-color:transparent}}
+.hero h1 .a,.hero h1 em{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}.hero h1 em{animation-delay:.15s}@keyframes rise{from{opacity:0;transform:translateY(26px)}}
+.quiz{isolation:isolate}.quiz::before{content:"";position:absolute;inset:-3px;border-radius:29px;z-index:-1;background:conic-gradient(from var(--a,0deg),#f3d98f,#875f17,#fff,#c9a24b,#f3d98f);animation:spin 6s linear infinite}
+@property --a{syntax:"<angle>";initial-value:0deg;inherits:false}@keyframes spin{to{--a:360deg}}
+.collage{height:250px;max-width:560px;margin:8px 0 24px}.collage img{border-width:4px}.collage img:nth-child(1){width:175px;height:190px;top:30px}.collage img:nth-child(2){left:165px;width:215px;height:230px}.collage img:nth-child(3){left:365px;width:175px;height:190px;top:34px}
+.collage .fl{position:absolute;z-index:5;background:#fff;border-radius:14px;padding:8px 13px;font-size:13px;font-weight:700;box-shadow:0 12px 28px rgba(0,0,0,.18);animation:bob 4s ease-in-out infinite}.collage .f1{left:6px;bottom:-6px}.collage .f2{right:0;top:-8px;animation-delay:-2s}@keyframes bob{50%{transform:translateY(-8px)}}
+.collage .fl b{color:var(--gold)}
+.band{background:#fff;padding:16px 0;overflow:hidden;border-block:1px solid var(--line)}.band .row{display:flex;gap:14px;width:max-content;animation:slide 60s linear infinite}.band .row+.row{margin-top:14px;animation-direction:reverse;animation-duration:70s}
+.band img{width:230px;height:150px;object-fit:cover;border-radius:16px;flex:none;box-shadow:0 10px 24px rgba(60,40,5,.18)}@keyframes slide{to{transform:translateX(-50%)}}
+.stats{background:linear-gradient(135deg,#231808,#4a3512);color:#fff;padding:44px 0}.stats .g{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}.stats b{display:block;font:800 clamp(34px,5vw,54px) var(--hf);color:#f3d98f;line-height:1}.stats span{color:#e8dcc0;font-size:14.5px}
+.qa{background:var(--bg2)}.qa .box{max-width:900px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:26px;padding:34px;box-shadow:0 18px 44px rgba(135,95,23,.14);border-left:6px solid var(--gold2)}.qa h2{font-size:clamp(26px,3.6vw,38px);margin-bottom:10px}.qa p.a{font-size:18px;color:#3b2c12}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:20px}.facts div{background:#fbf5e6;border-radius:14px;padding:12px 16px;font-size:15px}.facts b{display:block;color:var(--gold);font-size:12px;letter-spacing:.6px;text-transform:uppercase}
+.cmp{margin-top:34px;overflow-x:auto;border-radius:20px;border:1px solid var(--line);background:#fff}.cmp table{width:100%;border-collapse:collapse;min-width:560px}.cmp th{background:linear-gradient(135deg,#875f17,#c9a24b);color:#fff;padding:13px 16px;text-align:left;font-size:15px}.cmp td{padding:13px 16px;border-top:1px solid var(--line);font-size:15px;color:#3b2c12}.cmp td:first-child{font-weight:700;color:var(--gold)}.cmp caption{caption-side:top;text-align:left;padding:14px 16px;font:800 20px var(--hf)}
+.dbar{position:fixed;left:50%;bottom:18px;transform:translate(-50%,140%);z-index:58;background:#231808;color:#fff;border-radius:99px;padding:10px 12px 10px 24px;display:flex;align-items:center;gap:16px;box-shadow:0 18px 44px rgba(0,0,0,.4);transition:transform .5s cubic-bezier(.2,.8,.2,1);font-weight:600}.dbar.on{transform:translate(-50%,0)}.dbar .btn{padding:11px 22px;font-size:15px}
+.mag{transition:transform .2s}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:120}
+.hint .hd2{animation:hint 1.8s ease-in-out 1}@keyframes hint{0%,100%{left:50%}30%{left:30%}70%{left:70%}}
+.sh h2::after{content:"";display:block;width:70px;height:4px;border-radius:4px;background:linear-gradient(90deg,#c9a24b,#875f17);margin:14px auto 0;transform:scaleX(0);transition:transform .8s .3s}.sh.in h2::after{transform:scaleX(1)}
+.kc,.tp .vis,.rj figure,.yt{transition:transform .5s,box-shadow .5s}.rj figure:hover,.yt:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(135,95,23,.28)}
+@media(max-width:900px){.stats .g{grid-template-columns:1fr 1fr;row-gap:24px}.facts{grid-template-columns:1fr}.dbar{display:none}.band img{width:170px;height:115px}.collage{display:block;height:200px;max-width:100%;margin-top:24px}.collage img:nth-child(1){left:0;width:34%;height:150px}.collage img:nth-child(2){left:31%;width:38%;height:185px}.collage img:nth-child(3){left:66%;width:34%;height:150px}.hc2 .proof{margin-top:6px}.qa .box{padding:22px}}
+@media(max-width:900px){.hero .g{grid-template-areas:"a" "q" "b";gap:22px 0;grid-template-columns:1fr}section{padding:56px 0}.hero{padding-top:26px}.tp.on,.gd .g,.doc .g,.lg{grid-template-columns:1fr}.kg,.rj,.cg{grid-template-columns:1fr 1fr}.yg{grid-template-columns:1fr 1fr}.sg,.tl{grid-template-columns:1fr 1fr;row-gap:34px}.tl::before{display:none}.sb{display:flex}.fab,.glow{display:none}.top .btn.hide-m{display:none}.tp{padding:18px}.tp .vis{min-height:240px}.rvg{grid-template-columns:1fr}}
 @media(max-width:520px){.top img{height:34px}.kg{gap:10px}.kc b{font-size:15px}.kc .t{padding:12px}.rj{grid-template-columns:1fr}.yg{grid-template-columns:1fr}.sg{grid-template-columns:1fr}.opts{gap:8px}.rc{width:210px}.row2{grid-template-columns:1fr}.quiz{padding:20px 16px}.hero .sub{font-size:16px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv-up{opacity:1;transform:none}}
 """
@@ -169,6 +194,27 @@ footer{padding:34px 0 110px;text-align:center;font-size:13px;color:var(--mut);bo
 WA = '<svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 3C9 3 3.4 8.6 3.4 15.5c0 2.3.6 4.4 1.7 6.3L3 29l7.4-2c1.8 1 3.8 1.5 5.6 1.5 7 0 12.6-5.6 12.6-12.5S23 3 16 3zm0 22.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-4.4 1.2 1.2-4.3-.3-.4a10 10 0 0 1-1.5-5.3C5.6 9.9 10.3 5.3 16 5.3s10.4 4.6 10.4 10.2S21.7 25.8 16 25.8zm5.7-7.5c-.3-.2-1.8-.9-2.100-1s-.5-.2-.7.2-.8 1-1 1.200-.4.200-.7.1a8.500 8.500 0 0 1-4.200-3.700c-.3-.6.3-.5.9-1.700.1-.2 0-.4 0-.5l-1-2.300c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.500 1.100 2.900 1.200 3.100c.2.2 2.200 3.400 5.300 4.700 2 .8 2.700.9 3.700.7.6-.1 1.800-.7 2.100-1.400s.3-1.300.2-1.400-.3-.2-.6-.4z"/></svg>'
 PH = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.400 11.400 0 0 0 3.600.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.500a1 1 0 0 1 1 1c0 1.300.2 2.500.6 3.600a1 1 0 0 1-.25 1z"/></svg>'
 AS = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 6.600L21 9l-5.200 4.300L17.500 20 12 16.300 6.500 20l1.700-6.700L3 9l6.600-.4z"/></svg>'
+
+JS_ADD = r"""
+/* ---------- extra effects ---------- */
+const prog=document.createElement('div');prog.className='prog';document.body.prepend(prog);
+const dbar=$('#dbar');addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';if(dbar)dbar.classList.toggle('on',h.scrollTop>720&&!(Q.getBoundingClientRect().top<innerHeight&&Q.getBoundingClientRect().bottom>0))},{passive:true});
+/* typed headline */
+(()=>{const el=$('#typed b');if(!el||matchMedia('(prefers-reduced-motion:reduce)').matches)return;const w=CFG.typed;let i=0,j=0,del=false;
+ const tick=()=>{const s=w[i];j+=del?-1:1;el.textContent=s.slice(0,j);let d=del?28:60;if(!del&&j===s.length){d=1600;del=true}else if(del&&j===0){del=false;i=(i+1)%w.length;d=300}setTimeout(tick,d)};tick()})();
+/* count-up for stats band */
+const co2=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;co2.unobserve(e.target);const el=e.target,n=parseFloat(el.dataset.n),d=+el.dataset.d,t0=performance.now();const f=t=>{const p=Math.min((t-t0)/1500,1);el.textContent=(n*(1-Math.pow(1-p,3))).toFixed(d);if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)}),{threshold:.6});
+$$('[data-n]').forEach(el=>co2.observe(el));
+/* magnetic buttons */
+if(matchMedia('(hover:hover)').matches)$$('.btn.b-gold,.btn.b-wa').forEach(b=>{b.classList.add('mag');b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.12}px,${(e.clientY-r.top-r.height/2)*.2}px)`});b.addEventListener('mouseleave',()=>b.style.transform='')});
+/* hero parallax */
+if(!matchMedia('(prefers-reduced-motion:reduce)').matches)addEventListener('scroll',()=>{const y=scrollY;if(y<900)$$('.collage img').forEach((im,i)=>im.style.translate='0 '+(y*(.05+i*.02))+'px')},{passive:true});
+/* slider hint on first view */
+new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){ba.classList.add('hint');o.disconnect()}}),{threshold:.6}).observe(ba);
+/* confetti on lead */
+const confetti=()=>{const c=document.createElement('canvas');c.id='confetti';document.body.appendChild(c);const x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;const P=[...Array(120)].map(()=>({x:innerWidth/2,y:innerHeight*.6,vx:(Math.random()-.5)*14,vy:-Math.random()*14-4,s:4+Math.random()*6,c:['#c9a24b','#f3d98f','#875f17','#25d366','#fff'][Math.random()*5|0],r:Math.random()*6}));let t=0;const f=()=>{x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.r+=.2;x.fillStyle=p.c;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);x.restore()});if(++t<110)requestAnimationFrame(f);else c.remove()};f()};
+$('#qform').addEventListener('submit',()=>{if(/^[6-9]\d{9}$/.test($('#qform').phone.value.replace(/\D/g,'').replace(/^(91|0)(?=\d{10}$)/,'')))setTimeout(confetti,200)});
+"""
 
 JS = r"""
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
@@ -233,23 +279,57 @@ def esc(s):
     return s.replace('"', "&quot;")
 
 
+def ROBOTS_CANON(t):
+    if not BASE_URL:
+        return '<meta name="robots" content="noindex,follow"><link rel="alternate" hreflang="en-IN" href="index.html"><link rel="alternate" hreflang="mr-IN" href="mr.html">'
+    return ('<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1"><link rel="canonical" href="%s%s">'
+            '<link rel="alternate" hreflang="en-IN" href="%sindex.html"><link rel="alternate" hreflang="mr-IN" href="%smr.html"><link rel="alternate" hreflang="x-default" href="%sindex.html">' % (BASE_URL, t["file"], BASE_URL, BASE_URL, BASE_URL))
+
+
+def JSONLD(t):
+    import re as _re
+    strip = lambda s: _re.sub(r"<[^>]+>", "", s).replace("&rsquo;", "\u2019").replace("&amp;", "&").replace("&ldquo;", "\u201c").replace("&rdquo;", "\u201d")
+    url = (BASE_URL + t["file"]) if BASE_URL else t["file"]
+    clinics = [("Andheri West", "Ground Floor, Panchavati, Versova Marg, opp. Apna Bazar Road, next to D.N. Nagar Metro Station", "400058", 19.12765360178377, 72.83236785889565),
+               ("Ghatkopar East", "1st Floor, Nand Ashish, 102, R.B. Mehta Marg, above Natural Ice Cream", "400077", None, None)]
+    graph = [
+        {"@type": "WebPage", "@id": url + "#page", "url": url, "name": strip(t["title"]), "description": strip(t["meta"]), "inLanguage": t["html_lang"],
+         "about": {"@id": SITE + "/#clinic"}, "primaryImageOfPage": (BASE_URL + "assets/img/top2.jpg") if BASE_URL else "assets/img/top2.jpg"},
+        {"@type": "Physician", "@id": SITE + "/#dr-vinod-sonawane", "name": "Dr. Vinod Sonawane", "medicalSpecialty": "Hair Transplant Surgery", "image": DOCTOR0, "worksFor": {"@id": SITE + "/#clinic"}, "url": SITE + "/our-faculty/"},
+        {"@type": "MedicalClinic", "@id": SITE + "/#clinic", "name": "Bloom Hair Transplant", "url": SITE + "/", "logo": LOGO0, "image": LOGO0, "telephone": "+91-8097000044", "email": "info@bloomhairtransplant.com",
+         "medicalSpecialty": ["Hair Transplant Surgery", "Hair Restoration"], "founder": {"@id": SITE + "/#dr-vinod-sonawane"},
+         "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.9", "bestRating": "5", "ratingCount": "407"},
+         "location": [dict({"@type": "MedicalClinic", "name": "Bloom Hair Transplant, " + n, "telephone": "+91-8097000044",
+                            "address": {"@type": "PostalAddress", "streetAddress": s, "addressLocality": n, "addressRegion": "Maharashtra", "postalCode": z, "addressCountry": "IN"},
+                            "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "10:00", "closes": "20:00"}]},
+                           **({"geo": {"@type": "GeoCoordinates", "latitude": la, "longitude": lo}} if la else {})) for n, s, z, la, lo in clinics]},
+        {"@type": "FAQPage", "@id": url + "#faq", "mainEntity": [{"@type": "Question", "name": strip(q), "acceptedAnswer": {"@type": "Answer", "text": strip(a)}} for q, a in t["faqs"]]},
+        {"@type": "MedicalWebPage", "@id": url + "#guide", "name": strip(t["qa_title"]), "mainEntity": {"@type": "MedicalProcedure", "name": "Hair transplant", "description": strip(t["qa_text"]), "procedureType": "https://schema.org/SurgicalProcedure", "howPerformed": "Follicles are taken from a donor area and implanted into thinning areas under local anaesthesia."}},
+    ]
+    return '<script type="application/ld+json">%s</script>' % json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False)
+
+
 def build(t):
     wa_hello = "https://wa.me/%s?text=%s" % (PHONE_WA, urllib.parse.quote(t["wa_hello"]))
     IM = lambda n: "assets/img/%s.jpg" % n
     h = []
     A = h.append
     A('<!doctype html><html lang="%s"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' % t["html_lang"])
-    A('<title>%s</title><meta name="description" content="%s"><meta name="robots" content="noindex,follow">' % (t["title"], esc(t["meta"])))
-    A('<link rel="alternate" hreflang="en-IN" href="index.html"><link rel="alternate" hreflang="mr-IN" href="mr.html"><meta property="og:title" content="%s"><meta property="og:image" content="assets/img/top2.jpg">' % esc(t["title"]))
+    A('<title>%s</title><meta name="description" content="%s">%s' % (t["title"], esc(t["meta"]), ROBOTS_CANON(t)))
+    A('<meta property="og:title" content="%s"><meta property="og:description" content="%s"><meta property="og:type" content="website"><meta property="og:locale" content="%s"><meta property="og:image" content="%s"><meta name="twitter:card" content="summary_large_image">' % (esc(t["title"]), esc(t["meta"]), t["html_lang"].replace("-", "_"), (BASE_URL + "assets/img/top2.jpg") if BASE_URL else "assets/img/top2.jpg"))
+    A('<link rel="preload" as="image" href="assets/img/rec1.jpg" fetchpriority="high">')
+    A(JSONLD(t))
     A('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?%s&display=swap" rel="stylesheet">' % t["fonts"])
-    A('<style>:root{--bf:%s;--hf:%s}%s</style><!-- Paste GTM / Google Ads / Meta Pixel snippets here --></head><body><div class="glow" id="glow"></div>' % (t["bf"], t["hf"], CSS))
+    A('<style>:root{--bf:%s;--hf:%s}%s</style><!-- Paste GTM / Google Ads / Meta Pixel snippets here --></head><body><div class="ann">%s</div><div class="glow" id="glow"></div>' % (t["bf"], t["hf"], CSS, t["announce"]))
     A('<header class="top"><div class="wrap"><a href="%s"><img src="%s" alt="Bloom Hair Transplant &amp; Skin Care" width="150" height="40"></a><div class="ac"><a class="lang" href="%s">%s</a><a class="btn b-wa hide-m" href="%s" target="_blank" rel="noopener" data-ev="whatsapp">%s WhatsApp</a><a class="btn b-gold" href="tel:%s" data-ev="call">%s %s</a></div></div></header>' % (t["file"], LOGO, t["other_file"], t["lang_label"], wa_hello, WA, PHONE_TEL, PH, t["nav_call"]))
-    A('<section class="hero"><div class="wrap g"><div class="hc1"><span class="eyebrow"><i></i>%s</span><h1><span class="a">%s</span> %s</h1><p class="sub">%s</p></div>' % (t["eyebrow"], t["h1a"], t["h1b"], t["sub"]))
-    HC2 = ['<div class="hc2"><ul class="ul">']
-    for b in t["bullets"]:
-        HC2.append("<li>%s</li>" % b)
+    A('<section class="hero"><div class="wrap g"><div class="hc1"><span class="eyebrow"><i></i>%s</span><h1><span class="a">%s</span> %s</h1><p class="typed" id="typed" aria-hidden="true">%s <b>%s</b></p><p class="sub">%s</p></div>' % (t["eyebrow"], t["h1a"], t["h1b"], t["typed_pre"], t["typed"][0], t["sub"]))
+    COLL = '<div class="collage"><img src="%s" width="175" height="190" alt="Receding hairline before transplant" fetchpriority="high"><img src="%s" width="215" height="230" alt="Hairline design marked before a Bloom hair transplant"><img src="%s" width="175" height="190" alt="Crown thinning before treatment"><span class="fl f1"><b>4.9</b> Google</span><span class="fl f2">Doctor-led</span></div>' % (IM("rec1"), ai("hero") or IM("ba_mark"), IM("crown"))
+    CTA = '<div class="cta-row" style="margin:6px 0 4px"><a class="btn b-gold" href="tel:%s" data-ev="call">%s %s</a><a class="btn b-wa" href="%s" target="_blank" rel="noopener" data-ev="whatsapp">%s %s</a></div>' % (PHONE_TEL, PH, t["cta_call"], wa_hello, WA, t["cta_wa"])
+    HC2 = ['<div class="hc2">' + COLL + CTA + '<ul class="ul">']
+    for b_ in t["bullets"]:
+        HC2.append("<li>%s</li>" % b_)
     HC2.append('</ul><div class="proof"><div><b>%s</b><span>%s</span></div><div><b>%s</b><span>%s</span></div><div><b>%s</b><span>%s</span></div></div>' % (t["trust1"], t["trust1l"], t["trust2"], t["trust2l"], t["trust3"], t["trust3l"]))
-    HC2.append('<div class="collage"><img src="%s" alt="Receding hairline before transplant"><img src="%s" alt="Hairline marking at Bloom Hair Transplant"><img src="%s" alt="Crown thinning"></div></div>' % (IM("rec1"), ai("hero") or IM("ba_mark"), IM("crown")))
+    HC2.append('</div>')
     A('<div class="quiz" id="quiz"><div class="hd"><span>%s</span><small>%s</small></div><div class="pbar"><i></i></div>' % (t["q_title"], t["q_sub"].replace("{n}", "1")))
     A('<div class="step on"><h3>%s</h3><div class="opts">' % t["q1"])
     for val, lab, img in t["q1opts"]:
@@ -275,8 +355,14 @@ def build(t):
     A('<button class="btn b-gold pulse" style="width:100%%" type="submit">%s</button><p class="note">%s</p><div class="nav"><button type="button" class="btn back" data-back>←</button></div></form></div>' % (t["f_btn"], t["f_consent"]))
     A('<div class="done"><div class="ck">✓</div><h3 id="done-title"></h3><p id="done-sub"></p><a class="btn b-wa" id="done-wa" target="_blank" rel="noopener" data-ev="whatsapp">%s %s</a><small>%s</small><a class="btn b-gold" href="%s" download data-ev="guide">%s</a><a class="btn b-line" style="color:#875f17;border-color:#c9a24b" href="tel:%s" data-ev="call">%s</a></div></div>' % (WA, t["done_wa"], t["done_wa_sub"], t["guide"], t["done_guide"], PHONE_TEL, t["done_call"]))
     A("".join(HC2) + "</div></div></section>")
+    band = ["top1", "side1", "ba_mark", "beard1", "crown", "hair_b", "ba_result", "rec1", "strand", "top4", "harvest", "prof", "ba_before", "donor", "grow", "beard2", "exam", "follicle"]
+    r1 = "".join('<img src="%s" width="230" height="150" alt="%s">' % (IM(n), "Hair loss and transplant detail at Bloom Hair Transplant") for n in band[:9])
+    r2 = "".join('<img src="%s" width="230" height="150" alt="%s">' % (IM(n), "Hair transplant case frame from Bloom Hair Transplant") for n in band[9:])
+    A('<div class="band" aria-hidden="true"><div class="row">%s%s</div><div class="row">%s%s</div></div>' % (r1, r1, r2, r2))
     m = "".join("<span>%s</span>" % x for x in t["mq"])
     A('<div class="mq" aria-hidden="true"><div>%s%s%s</div></div>' % (m, m, m))
+    A('<div class="stats"><div class="wrap g">' + "".join('<div class="rv-up"><b data-n="%s" data-d="%d">0</b><span>%s</span></div>' % (n, d, l) for n, l, d in t["stat_items"]) + '</div></div>')
+    A('<section class="qa"><div class="wrap"><div class="box rv-up"><span class="tag">%s</span><h2>%s</h2><p class="a">%s</p><div class="facts">%s</div></div></div></section>' % (t["qa_tag"], t["qa_title"], t["qa_text"], "".join("<div><b>%s</b>%s</div>" % f for f in t["facts"])))
     A('<section><div class="wrap"><div class="sh rv-up"><span class="tag">%s</span><h2>%s</h2><p>%s</p></div><div class="kg">' % (t["k_tag"], t["k_title"], t["k_sub"]))
     for img, ttl, val in t["k_cards"]:
         A('<div class="kc rv-up tilt" data-concern="%s"><img src="%s" alt="%s"><div class="t"><b>%s</b><span>%s →</span></div></div>' % (esc(val), IM(img), esc(ttl), ttl, t["k_cta"]))
@@ -290,6 +376,7 @@ def build(t):
         photo = '<img class="ph" src="%s" alt="%s">' % (src, esc(ty["full"])) if has else ""
         A('<div class="tp%s" id="tp-%s"><div class="vis%s">%s%s</div><div><h3>%s</h3><div class="full">%s</div><p>%s</p><div class="meta"><div><b>%s</b>%s</div><div><b>%s</b>%s</div></div><b style="color:var(--gold);font-size:12px;letter-spacing:.6px;text-transform:uppercase">%s</b><ol>%s</ol><a class="btn b-gold" href="#quiz" data-go>%s</a></div></div>' % (
             " on" if i == 0 else "", ty["k"], " has" if has else "", photo, DIA[ty["dia"]], ty["name"], ty["full"], ty["d"], t["t_best"], ty["best"], t["t_scar"], ty["scar"], t["t_how"], "".join("<li>%s</li>" % s for s in ty["steps"]), t["t_cta"]))
+    A('<div class="cmp rv-up"><table><caption>%s</caption><tr>%s</tr>%s</table></div>' % (t["cmp_title"], "".join("<th>%s</th>" % x for x in t["cmp_th"]), "".join("<tr>%s</tr>" % "".join("<td>%s</td>" % x for x in r) for r in t["cmp_rows"])))
     A('</div></section><section><div class="wrap"><div class="sh rv-up"><span class="tag">%s</span><h2>%s</h2><p>%s</p></div><div class="rj">' % (t["r_tag"], t["r_title"], t["r_sub"]))
     for i, (img, cap) in enumerate(t["r_steps"]):
         A('<figure class="rv-up" data-n="%d"><img src="%s" alt="%s"><figcaption>%s</figcaption></figure>' % (i + 1, IM(img), cap, cap))
@@ -338,10 +425,11 @@ def build(t):
     A('</div></div></section><section class="end"><div class="wrap"><h2 class="rv-up">%s</h2><p class="rv-up">%s</p><div class="r rv-up"><a class="btn b-gold pulse" href="#quiz" data-go>%s</a><a class="btn b-wa" href="%s" target="_blank" rel="noopener" data-ev="whatsapp">%s %s</a><a class="btn b-line" href="tel:%s" data-ev="call">%s %s</a></div></div></section>' % (t["e_title"], t["e_sub"], t["e_start"], wa_hello, WA, t["e_wa"], PHONE_TEL, PH, t["e_call"]))
     A('<footer><div class="wrap"><p>%s</p><p style="margin-top:10px"><a href="%s/privacy-policy/" target="_blank" rel="noopener">%s</a> · <a href="%s" target="_blank" rel="noopener">bloomhairtransplant.com</a></p></div></footer>' % (t["foot"], SITE, t["privacy"], SITE))
     A('<nav class="sb"><a class="c" href="tel:%s" data-ev="call">%s%s</a><a class="w" href="%s" target="_blank" rel="noopener" data-ev="whatsapp">%s%s</a><button class="b" data-go>%s%s</button></nav>' % (PHONE_TEL, PH, t["sb_call"], wa_hello, WA, t["sb_wa"], AS, t["sb_go"]))
+    A('<div class="dbar" id="dbar"><span>%s</span><a class="btn b-gold" href="#quiz" data-go>%s</a><a class="btn b-wa" href="%s" target="_blank" rel="noopener" data-ev="whatsapp">%s</a></div>' % (t["e_title"], t["e_start"], wa_hello, WA))
     A('<a class="fab" href="%s" target="_blank" rel="noopener" aria-label="WhatsApp" data-ev="whatsapp">%s</a>' % (wa_hello, WA))
     A('<div class="md" id="md"><div class="bx"><button class="x" aria-label="Close">×</button><h3>%s</h3><p>%s</p><a class="btn b-gold" style="width:100%%" href="#quiz" data-go>%s</a></div></div>' % (t["x_title"], t["x_sub"], t["x_cta"]))
-    cfg = dict(endpoint=FORM_ENDPOINT, waNumber=PHONE_WA, waMsg=t["wa_msg"], ba=BA, lang=t["lang"], stepLabel=t["q_sub"], doneTitle=t["done_title"], doneSub=t["done_sub"], prevDefault=t["q3bopts"][0])
-    A("<script>const CFG=%s;%s</script></body></html>" % (json.dumps(cfg, ensure_ascii=False), JS))
+    cfg = dict(endpoint=FORM_ENDPOINT, waNumber=PHONE_WA, waMsg=t["wa_msg"], ba=BA, lang=t["lang"], stepLabel=t["q_sub"], doneTitle=t["done_title"], doneSub=t["done_sub"], prevDefault=t["q3bopts"][0], typed=t["typed"])
+    A("<script>const CFG=%s;%s</script></body></html>" % (json.dumps(cfg, ensure_ascii=False), JS + JS_ADD))
     return "".join(h)
 
 
