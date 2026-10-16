@@ -64,7 +64,7 @@ def page(t):
 <div class="pg"><span class="tag">2</span><h2>%(p2_t)s</h2><p>%(p2_s)s</p><ul style="margin-top:8px">%(chk)s</ul>
 <div class="g2"><div><h3>%(cost_t)s</h3><ul>%(cost)s</ul></div><div class="box">%(cost_n)s</div></div>
 <h3>%(tl_t)s</h3><div class="cl" style="grid-template-columns:repeat(4,1fr)">%(tl)s</div>
-<div class="imgs" style="margin-top:12px"><img src="%(im)sba_before.jpg"><img src="%(im)sba_mark.jpg"><img src="%(im)sba_result.jpg"></div><div class="foot">%(disc)s</div></div>
+<div class="imgs" style="margin-top:12px"><img src="%(im)scase-before.jpg"><img src="%(im)scase-design.jpg"><img src="%(im)scase-result.jpg"></div><div class="foot">%(disc)s</div></div>
 <div class="pg"><span class="tag">3</span><h2>%(p3_t)s</h2><ol style="margin:8px 0 0 18px">%(qs)s</ol>
 <h3 style="margin-top:16px">%(vis)s</h3><div class="cl">%(clin)s</div><div class="box" style="margin-top:14px;font-weight:700;color:#875f17">%(call)s</div><div class="foot">%(disc)s</div></div>
 </body></html>""" % dict(t, css=CSS % t, im=im, rows=rows, th="".join("<th>%s</th>" % c for c in t["th"]), sp_l="".join("<li>%s</li>" % x for x in t["sp_l"]),
