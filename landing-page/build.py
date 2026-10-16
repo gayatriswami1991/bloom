@@ -14,10 +14,23 @@ FORM_ENDPOINT = ""   # Zoho / Apps Script / Formspree URL. Empty = result screen
 CELEB_URLS = []      # e.g. ["https://bloomhairtransplant.com/wp-content/uploads/....jpg"]
 SITE = "https://bloomhairtransplant.com"
 UP = SITE + "/wp-content/uploads/"
-LOGO = UP + "2025/08/bloom-logo-h.png.webp"
-DOCTOR = UP + "2025/08/Dr.-Vinod-Sonawane.png.webp"
-BA = [(UP + "2025/08/Before-%d.jpg.webp" % i, UP + "2025/08/after-%d.jpg.webp" % i) for i in (1, 2, 4, 5)]
+LOGO0 = UP + "2025/08/bloom-logo-h.png.webp"
+DOCTOR0 = UP + "2025/08/Dr.-Vinod-Sonawane.png.webp"
+BA0 = [(UP + "2025/08/Before-%d.jpg.webp" % i, UP + "2025/08/after-%d.jpg.webp" % i) for i in (1, 2, 4, 5)]
 HERE = pathlib.Path(__file__).parent
+YT = ["Dn2N_gUN1oY", "I_VeRpoS5QI", "U-SsAY2cG7w", "lVhENxRkblw", "EIHWzzx5JyY", "FNbbMlcLFNk"]  # YouTube patient videos used on the Bloom website
+
+
+def site(url):
+    """Use assets/site/<file> (see fetch_site_images.py) when present, else hotlink the website image."""
+    local = HERE / "assets" / "site" / url.rsplit("/", 1)[-1]
+    return "assets/site/" + local.name if local.exists() else url
+
+
+LOGO, DOCTOR = site(LOGO0), site(DOCTOR0)
+BA = [(site(a), site(z)) for a, z in BA0]
+
+
 
 # ------------------------------------------------------------- DIAGRAMS (inline SVG)
 def head(extra=""):
@@ -114,6 +127,9 @@ img,video,svg{max-width:100%;display:block}a{color:inherit;text-decoration:none}
 .ba .lb{position:absolute;top:14px;padding:5px 13px;border-radius:99px;background:rgba(0,0,0,.65);color:#fff;font-size:13px;font-weight:700}.ba .l1{left:14px}.ba .l2{right:14px;background:#c9a24b;color:#231808}
 .disc{max-width:660px;margin:20px auto 0;text-align:center;font-size:13px;color:var(--mut)}
 .celeb{background:var(--bg2)}.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}.cg img{border-radius:var(--r);aspect-ratio:3/4;object-fit:cover;width:100%;border:1px solid var(--line)}
+.yt{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:16/9;background:#000;cursor:pointer;border:1px solid var(--line);box-shadow:0 14px 34px rgba(60,40,5,.2)}.yt img,.yt iframe{width:100%;height:100%;object-fit:cover;border:0;display:block}
+.yt .pl{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.7))}.yt .pl i{width:66px;height:66px;border-radius:50%;background:#fff;display:grid;place-items:center;color:#875f17;font-size:24px;padding-left:4px;font-style:normal;animation:pulse 2s infinite}.yt .cap{position:absolute;left:14px;bottom:10px;color:#fff;font-weight:600;font-size:14px;z-index:2}
+.yg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .gd{background:linear-gradient(135deg,#c9a24b,#7a5410);color:#fff}.gd .g{display:grid;grid-template-columns:.8fr 1.2fr;gap:44px;align-items:center}
 .book{width:min(300px,80%);aspect-ratio:3/4.1;margin:0 auto;border-radius:10px 20px 20px 10px;background:linear-gradient(160deg,#fffaf0,#efe0b8);color:#231808;padding:26px 22px;box-shadow:-14px 18px 40px rgba(0,0,0,.5),inset 6px 0 0 rgba(0,0,0,.1);transform:perspective(900px) rotateY(-14deg);transition:transform .5s;display:flex;flex-direction:column;position:relative;overflow:hidden}
 .book:hover{transform:perspective(900px) rotateY(0)}.book img{border-radius:12px;height:44%;object-fit:cover;margin-bottom:14px}.book small{font-weight:700;letter-spacing:1px;color:#875f17;font-size:11px;text-transform:uppercase}.book b{font:800 27px/1.1 var(--hf);margin:4px 0 6px}.book em{font-size:12px;color:#5b4a2a;font-style:normal;margin-top:auto}
@@ -145,8 +161,8 @@ footer{padding:34px 0 110px;text-align:center;font-size:13px;color:var(--mut);bo
 .md .bx{background:var(--cream);color:#231808;border-radius:24px;padding:30px;max-width:420px;text-align:center;position:relative;animation:pop .35s}.md h3{font:800 24px var(--bf);margin-bottom:8px}.md p{color:#5b4a2a;margin-bottom:18px}.md .x{position:absolute;right:14px;top:8px;border:0;background:0;font-size:28px;cursor:pointer;color:#7a6a4c}
 .rv-up{opacity:0;transform:translateY(34px);transition:opacity .8s,transform .8s}.rv-up.in{opacity:1;transform:none}
 .glow{position:fixed;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(230,196,119,.12),transparent 65%);pointer-events:none;z-index:0;transform:translate(-50%,-50%)}
-@media(max-width:900px){.hero .g{grid-template-areas:"a" "q" "b";gap:22px 0;grid-template-columns:1fr}section{padding:56px 0}.hero{padding-top:26px}.tp.on,.gd .g,.doc .g,.lg{grid-template-columns:1fr}.kg,.rj{grid-template-columns:1fr 1fr}.sg,.tl{grid-template-columns:1fr 1fr;row-gap:34px}.tl::before{display:none}.sb{display:flex}.fab,.glow{display:none}.top .btn.hide-m{display:none}.collage{display:none}.tp{padding:18px}.tp .vis{min-height:240px}.rvg{grid-template-columns:1fr}}
-@media(max-width:520px){.top img{height:34px}.kg{gap:10px}.kc b{font-size:15px}.kc .t{padding:12px}.rj{grid-template-columns:1fr}.sg{grid-template-columns:1fr}.opts{gap:8px}.rc{width:210px}.row2{grid-template-columns:1fr}.quiz{padding:20px 16px}.hero .sub{font-size:16px}}
+@media(max-width:900px){.hero .g{grid-template-areas:"a" "q" "b";gap:22px 0;grid-template-columns:1fr}section{padding:56px 0}.hero{padding-top:26px}.tp.on,.gd .g,.doc .g,.lg{grid-template-columns:1fr}.kg,.rj{grid-template-columns:1fr 1fr}.yg{grid-template-columns:1fr 1fr}.sg,.tl{grid-template-columns:1fr 1fr;row-gap:34px}.tl::before{display:none}.sb{display:flex}.fab,.glow{display:none}.top .btn.hide-m{display:none}.collage{display:none}.tp{padding:18px}.tp .vis{min-height:240px}.rvg{grid-template-columns:1fr}}
+@media(max-width:520px){.top img{height:34px}.kg{gap:10px}.kc b{font-size:15px}.kc .t{padding:12px}.rj{grid-template-columns:1fr}.yg{grid-template-columns:1fr}.sg{grid-template-columns:1fr}.opts{gap:8px}.rc{width:210px}.row2{grid-template-columns:1fr}.quiz{padding:20px 16px}.hero .sub{font-size:16px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv-up{opacity:1;transform:none}}
 """
 
@@ -192,6 +208,7 @@ $$('.rc').forEach(c=>c.addEventListener('click',()=>{let v=$('video',c);
 const ba=$('#ba'),af=$('#ba-a');let drag=false;const setPos=x=>{const r=ba.getBoundingClientRect(),p=Math.max(0,Math.min(1,(x-r.left)/r.width))*100;af.style.clipPath=`inset(0 0 0 ${p}%)`;$('.hd2',ba).style.left=p+'%'};
 ba.addEventListener('pointerdown',e=>{drag=true;ba.setPointerCapture(e.pointerId);setPos(e.clientX)});ba.addEventListener('pointermove',e=>{if(drag)setPos(e.clientX)});ba.addEventListener('pointerup',()=>drag=false);
 $$('.ba-tabs button').forEach(b=>b.addEventListener('click',()=>{$$('.ba-tabs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');const p=CFG.ba[+b.dataset.i];$('#ba-b').src=p[0];af.src=p[1];setPos(ba.getBoundingClientRect().left+ba.offsetWidth/2)}));
+$$('.yt').forEach(y=>y.addEventListener('click',()=>{if(y.dataset.on)return;y.dataset.on=1;y.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+y.dataset.id+'?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="Patient story"></iframe>';track('youtube',{id:y.dataset.id})}));
 $('.x',md).onclick=()=>md.classList.remove('on');md.addEventListener('click',e=>{if(e.target===md)md.classList.remove('on')});
 let shown=0;try{shown=sessionStorage.getItem('xi')}catch(_){}
 document.addEventListener('mouseout',e=>{if(!shown&&e.clientY<=0&&innerWidth>900&&$('.done',Q).style.display!=='block'){shown=1;try{sessionStorage.setItem('xi',1)}catch(_){}md.classList.add('on')}});
@@ -309,7 +326,10 @@ def build(t):
     A('</div></div></section><section><div class="wrap"><div class="sh rv-up"><span class="tag">%s</span><h2>%s</h2></div><div class="rvg">' % (t["rv_tag"], t["rv_title"]))
     for n, tx in t["reviews"]:
         A('<div class="rv rv-up"><div class="st">★★★★★</div><p>%s</p><b>%s</b><small>Google review</small></div>' % (tx, n))
-    A('</div></div></section><section class="types"><div class="wrap"><div class="sh rv-up"><span class="tag">%s</span><h2>%s</h2></div><div class="lg">' % (t["l_tag"], t["l_title"]))
+    A('</div></div></section><section class="types"><div class="wrap"><div class="sh rv-up"><span class="tag">%s</span><h2>%s</h2><p>%s</p></div><div class="yg">' % (t["y_tag"], t["y_title"], t["y_sub"]))
+    for i, vid in enumerate(YT):
+        A('<div class="yt rv-up" data-id="%s"><img src="https://i.ytimg.com/vi/%s/hqdefault.jpg" alt="%s %d" loading="lazy"><div class="pl"><i>▶</i></div><div class="cap">%s %d</div></div>' % (vid, vid, t["y_cap"], i + 1, t["y_cap"], i + 1))
+    A('</div></div></section><section><div class="wrap"><div class="sh rv-up"><span class="tag">%s</span><h2>%s</h2></div><div class="lg">' % (t["l_tag"], t["l_title"]))
     for n, addr, mp in t["clinics"]:
         A('<div class="lc rv-up"><h3>%s %s</h3><p>%s</p><p class="h">%s %s</p><div class="r"><a class="btn b-gold" href="tel:%s" data-ev="call">%s %s</a><a class="btn b-line" href="%s" target="_blank" rel="noopener" data-ev="directions">%s</a></div></div>' % (ICON["pin"], n, addr, ICON["clock"], t["hours"], PHONE_TEL, PH, PHONE_DISPLAY, mp, t["directions"]))
     A('</div></div></section><section><div class="wrap"><div class="sh rv-up"><span class="tag">%s</span><h2>%s</h2></div><div class="fq">' % (t["f_tag"], t["f_title"]))
