@@ -126,7 +126,7 @@ img,video,svg{max-width:100%;display:block}a{color:inherit;text-decoration:none}
 .ba .hd2::after{content:"⇄";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;background:#fff;color:#875f17;display:grid;place-items:center;font-size:22px;box-shadow:0 6px 18px rgba(0,0,0,.4)}
 .ba .lb{position:absolute;top:14px;padding:5px 13px;border-radius:99px;background:rgba(0,0,0,.65);color:#fff;font-size:13px;font-weight:700}.ba .l1{left:14px}.ba .l2{right:14px;background:#c9a24b;color:#231808}
 .disc{max-width:660px;margin:20px auto 0;text-align:center;font-size:13px;color:var(--mut)}
-.celeb{background:var(--bg2)}.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}.cg img{border-radius:var(--r);aspect-ratio:3/4;object-fit:cover;width:100%;border:1px solid var(--line)}
+.celeb{background:var(--bg2)}.cg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:900px;margin:0 auto}.cg img{border-radius:var(--r);aspect-ratio:3/4;object-fit:cover;width:100%;border:1px solid var(--line)}
 .yt{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:16/9;background:#000;cursor:pointer;border:1px solid var(--line);box-shadow:0 14px 34px rgba(60,40,5,.2)}.yt img,.yt iframe{width:100%;height:100%;object-fit:cover;border:0;display:block}
 .yt .pl{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.7))}.yt .pl i{width:66px;height:66px;border-radius:50%;background:#fff;display:grid;place-items:center;color:#875f17;font-size:24px;padding-left:4px;font-style:normal;animation:pulse 2s infinite}.yt .cap{position:absolute;left:14px;bottom:10px;color:#fff;font-weight:600;font-size:14px;z-index:2}
 .yg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -161,7 +161,7 @@ footer{padding:34px 0 110px;text-align:center;font-size:13px;color:var(--mut);bo
 .md .bx{background:var(--cream);color:#231808;border-radius:24px;padding:30px;max-width:420px;text-align:center;position:relative;animation:pop .35s}.md h3{font:800 24px var(--bf);margin-bottom:8px}.md p{color:#5b4a2a;margin-bottom:18px}.md .x{position:absolute;right:14px;top:8px;border:0;background:0;font-size:28px;cursor:pointer;color:#7a6a4c}
 .rv-up{opacity:0;transform:translateY(34px);transition:opacity .8s,transform .8s}.rv-up.in{opacity:1;transform:none}
 .glow{position:fixed;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(230,196,119,.12),transparent 65%);pointer-events:none;z-index:0;transform:translate(-50%,-50%)}
-@media(max-width:900px){.hero .g{grid-template-areas:"a" "q" "b";gap:22px 0;grid-template-columns:1fr}section{padding:56px 0}.hero{padding-top:26px}.tp.on,.gd .g,.doc .g,.lg{grid-template-columns:1fr}.kg,.rj{grid-template-columns:1fr 1fr}.yg{grid-template-columns:1fr 1fr}.sg,.tl{grid-template-columns:1fr 1fr;row-gap:34px}.tl::before{display:none}.sb{display:flex}.fab,.glow{display:none}.top .btn.hide-m{display:none}.collage{display:none}.tp{padding:18px}.tp .vis{min-height:240px}.rvg{grid-template-columns:1fr}}
+@media(max-width:900px){.hero .g{grid-template-areas:"a" "q" "b";gap:22px 0;grid-template-columns:1fr}section{padding:56px 0}.hero{padding-top:26px}.tp.on,.gd .g,.doc .g,.lg{grid-template-columns:1fr}.kg,.rj,.cg{grid-template-columns:1fr 1fr}.yg{grid-template-columns:1fr 1fr}.sg,.tl{grid-template-columns:1fr 1fr;row-gap:34px}.tl::before{display:none}.sb{display:flex}.fab,.glow{display:none}.top .btn.hide-m{display:none}.collage{display:none}.tp{padding:18px}.tp .vis{min-height:240px}.rvg{grid-template-columns:1fr}}
 @media(max-width:520px){.top img{height:34px}.kg{gap:10px}.kc b{font-size:15px}.kc .t{padding:12px}.rj{grid-template-columns:1fr}.yg{grid-template-columns:1fr}.sg{grid-template-columns:1fr}.opts{gap:8px}.rc{width:210px}.row2{grid-template-columns:1fr}.quiz{padding:20px 16px}.hero .sub{font-size:16px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv-up{opacity:1;transform:none}}
 """
@@ -253,7 +253,7 @@ def build(t):
     A('<div class="quiz" id="quiz"><div class="hd"><span>%s</span><small>%s</small></div><div class="pbar"><i></i></div>' % (t["q_title"], t["q_sub"].replace("{n}", "1")))
     A('<div class="step on"><h3>%s</h3><div class="opts">' % t["q1"])
     for val, lab, img in t["q1opts"]:
-        vis = ('<img src="%s" alt="%s" loading="lazy">' % (ai(img), esc(lab)) if ai(img) else '<div class="e">%s</div>' % ICON[img]) if img in ("repair", "female") else '<img src="%s" alt="%s" loading="lazy">' % (IM(img), esc(lab))
+        vis = ('<img src="%s" alt="%s">' % (ai(img), esc(lab)) if ai(img) else '<div class="e">%s</div>' % ICON[img]) if img in ("repair", "female") else '<img src="%s" alt="%s">' % (IM(img), esc(lab))
         A('<button type="button" class="op" data-q1 data-v="%s">%s<span>%s</span></button>' % (esc(val), vis, lab))
     A('</div></div><div class="step"><h3>%s</h3><h4>%s</h4><div class="chips">' % (t["q2"], t["q2a"]))
     for o in t["q2aopts"]:
@@ -279,7 +279,7 @@ def build(t):
     A('<div class="mq" aria-hidden="true"><div>%s%s%s</div></div>' % (m, m, m))
     A('<section><div class="wrap"><div class="sh rv-up"><span class="tag">%s</span><h2>%s</h2><p>%s</p></div><div class="kg">' % (t["k_tag"], t["k_title"], t["k_sub"]))
     for img, ttl, val in t["k_cards"]:
-        A('<div class="kc rv-up tilt" data-concern="%s"><img src="%s" alt="%s" loading="lazy"><div class="t"><b>%s</b><span>%s →</span></div></div>' % (esc(val), IM(img), esc(ttl), ttl, t["k_cta"]))
+        A('<div class="kc rv-up tilt" data-concern="%s"><img src="%s" alt="%s"><div class="t"><b>%s</b><span>%s →</span></div></div>' % (esc(val), IM(img), esc(ttl), ttl, t["k_cta"]))
     A('</div></div></section><section class="types"><div class="wrap"><div class="sh rv-up"><span class="tag">%s</span><h2>%s</h2><p>%s</p></div><div class="tt">' % (t["t_tag"], t["t_title"], t["t_sub"]))
     for i, ty in enumerate(t["types"]):
         A('<button data-k="%s"%s>%s</button>' % (ty["k"], ' class="on"' if i == 0 else "", ty["name"]))
@@ -287,16 +287,16 @@ def build(t):
     for i, ty in enumerate(t["types"]):
         src = ai(ty["k"].lower()) or (IM(ty["img"]) if ty["img"] else "")
         has = bool(src)
-        photo = '<img class="ph" src="%s" alt="%s" loading="lazy">' % (src, esc(ty["full"])) if has else ""
+        photo = '<img class="ph" src="%s" alt="%s">' % (src, esc(ty["full"])) if has else ""
         A('<div class="tp%s" id="tp-%s"><div class="vis%s">%s%s</div><div><h3>%s</h3><div class="full">%s</div><p>%s</p><div class="meta"><div><b>%s</b>%s</div><div><b>%s</b>%s</div></div><b style="color:var(--gold);font-size:12px;letter-spacing:.6px;text-transform:uppercase">%s</b><ol>%s</ol><a class="btn b-gold" href="#quiz" data-go>%s</a></div></div>' % (
             " on" if i == 0 else "", ty["k"], " has" if has else "", photo, DIA[ty["dia"]], ty["name"], ty["full"], ty["d"], t["t_best"], ty["best"], t["t_scar"], ty["scar"], t["t_how"], "".join("<li>%s</li>" % s for s in ty["steps"]), t["t_cta"]))
     A('</div></section><section><div class="wrap"><div class="sh rv-up"><span class="tag">%s</span><h2>%s</h2><p>%s</p></div><div class="rj">' % (t["r_tag"], t["r_title"], t["r_sub"]))
     for i, (img, cap) in enumerate(t["r_steps"]):
-        A('<figure class="rv-up" data-n="%d"><img src="%s" alt="%s" loading="lazy"><figcaption>%s</figcaption></figure>' % (i + 1, IM(img), cap, cap))
+        A('<figure class="rv-up" data-n="%d"><img src="%s" alt="%s"><figcaption>%s</figcaption></figure>' % (i + 1, IM(img), cap, cap))
     A('</div><div class="ba-tabs">')
     for i in range(len(BA)):
         A('<button data-i="%d"%s>%d</button>' % (i, ' class="on"' if i == 0 else "", i + 1))
-    A('</div><div class="ba" id="ba"><img src="%s" id="ba-b" alt="Before" loading="lazy"><img class="af" src="%s" id="ba-a" alt="After" loading="lazy"><span class="lb l1">%s</span><span class="lb l2">%s</span><div class="hd2"></div></div><p class="disc">%s</p></div></section>' % (BA[0][0], BA[0][1], t["b_before"], t["b_after"], t["r_disc"]))
+    A('</div><div class="ba" id="ba"><img src="%s" id="ba-b" alt="Before"><img class="af" src="%s" id="ba-a" alt="After"><span class="lb l1">%s</span><span class="lb l2">%s</span><div class="hd2"></div></div><p class="disc">%s</p></div></section>' % (BA[0][0], BA[0][1], t["b_before"], t["b_after"], t["r_disc"]))
     cel = list(CELEB_URLS)
     cd = HERE / "assets" / "celeb"
     if cd.exists():
@@ -304,19 +304,19 @@ def build(t):
     if cel:
         A('<section class="celeb"><div class="wrap"><div class="sh rv-up"><span class="tag">%s</span><h2>%s</h2><p>%s</p></div><div class="cg">' % (t["c_tag"], t["c_title"], t["c_sub"]))
         for u in cel:
-            A('<img class="rv-up" src="%s" alt="Celebrity hair transplant at Bloom" loading="lazy">' % u)
+            A('<img class="rv-up" src="%s" alt="Celebrity hair transplant at Bloom">' % u)
         A('</div><p style="text-align:center;margin-top:26px"><a class="btn b-line" href="%s/services/celebrity-hair-transplant-mumbai/" target="_blank" rel="noopener">%s</a></p></div></section>' % (SITE, t["c_cta"]))
     A('<section class="gd"><div class="wrap g"><div class="rv-up"><div class="book"><img src="%s" alt=""><small>Bloom Hair Transplant</small><b>%s<br>%s</b><em>%s</em></div></div><div class="rv-up"><span class="tag">%s</span><h2>%s</h2><ul class="ul">' % (IM("top2"), t["g_cover1"], t["g_cover2"], t["g_cover3"], t["g_tag"], t["g_title"]))
     for p in t["g_pts"]:
         A("<li>%s</li>" % p)
     A('</ul><a class="btn b-gold pulse" href="#quiz" data-go>%s</a></div></div></section>' % t["g_cta"])
-    A('<section class="doc"><div class="wrap"><div class="g"><div class="ph rv-up"><img src="%s" alt="Dr. Vinod Sonawane" loading="lazy" width="670" height="838"></div><div class="rv-up"><span class="tag">%s</span><h2>%s</h2><p>%s</p><ul class="ul">' % (DOCTOR, t["d_tag"], t["d_title"], t["d_text"]))
+    A('<section class="doc"><div class="wrap"><div class="g"><div class="ph rv-up"><img src="%s" alt="Dr. Vinod Sonawane" width="670" height="838"></div><div class="rv-up"><span class="tag">%s</span><h2>%s</h2><p>%s</p><ul class="ul">' % (DOCTOR, t["d_tag"], t["d_title"], t["d_text"]))
     for p in t["d_pts"]:
         A("<li>%s</li>" % p)
     A('</ul><a class="btn b-gold" href="#quiz" data-go>%s</a></div></div>' % t["d_cta"])
     A('<div class="sh rv-up" style="margin-top:70px;margin-bottom:0"><span class="tag">%s</span><h2>%s</h2><p>%s</p></div><div class="rs">' % (t["v_tag"], t["v_title"], t["v_sub"]))
     for key, cap in t["reels"]:
-        A('<div class="rc" data-v="assets/reels/%s.mp4"><img class="p" src="assets/reels/%s.jpg" alt="%s" loading="lazy" width="270" height="480"><div class="pl"><i>▶</i></div><div class="cap">%s</div></div>' % (key, key, esc(cap), cap))
+        A('<div class="rc" data-v="assets/reels/%s.mp4"><img class="p" src="assets/reels/%s.jpg" alt="%s" width="270" height="480"><div class="pl"><i>▶</i></div><div class="cap">%s</div></div>' % (key, key, esc(cap), cap))
     A('</div></div></section><section class="types"><div class="wrap"><div class="sh rv-up"><span class="tag">%s</span><h2>%s</h2></div><div class="sg">' % (t["s_tag"], t["s_title"]))
     for a, b in t["steps"]:
         A('<div class="sc rv-up"><h3>%s</h3><p>%s</p></div>' % (a, b))
@@ -328,7 +328,7 @@ def build(t):
         A('<div class="rv rv-up"><div class="st">★★★★★</div><p>%s</p><b>%s</b><small>Google review</small></div>' % (tx, n))
     A('</div></div></section><section class="types"><div class="wrap"><div class="sh rv-up"><span class="tag">%s</span><h2>%s</h2><p>%s</p></div><div class="yg">' % (t["y_tag"], t["y_title"], t["y_sub"]))
     for i, vid in enumerate(YT):
-        A('<div class="yt rv-up" data-id="%s"><img src="https://i.ytimg.com/vi/%s/hqdefault.jpg" alt="%s %d" loading="lazy"><div class="pl"><i>▶</i></div><div class="cap">%s %d</div></div>' % (vid, vid, t["y_cap"], i + 1, t["y_cap"], i + 1))
+        A('<div class="yt rv-up" data-id="%s"><img src="https://i.ytimg.com/vi/%s/hqdefault.jpg" alt="%s %d"><div class="pl"><i>▶</i></div><div class="cap">%s %d</div></div>' % (vid, vid, t["y_cap"], i + 1, t["y_cap"], i + 1))
     A('</div></div></section><section><div class="wrap"><div class="sh rv-up"><span class="tag">%s</span><h2>%s</h2></div><div class="lg">' % (t["l_tag"], t["l_title"]))
     for n, addr, mp in t["clinics"]:
         A('<div class="lc rv-up"><h3>%s %s</h3><p>%s</p><p class="h">%s %s</p><div class="r"><a class="btn b-gold" href="tel:%s" data-ev="call">%s %s</a><a class="btn b-line" href="%s" target="_blank" rel="noopener" data-ev="directions">%s</a></div></div>' % (ICON["pin"], n, addr, ICON["clock"], t["hours"], PHONE_TEL, PH, PHONE_DISPLAY, mp, t["directions"]))
