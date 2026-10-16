@@ -170,7 +170,7 @@ footer{padding:34px 0 110px;text-align:center;font-size:13px;color:var(--mut);bo
 .hero h1 .a,.hero h1 em{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}.hero h1 em{animation-delay:.15s}@keyframes rise{from{opacity:0;transform:translateY(26px)}}
 .quiz{isolation:isolate}.quiz::before{content:"";position:absolute;inset:-3px;border-radius:29px;z-index:-1;background:conic-gradient(from var(--a,0deg),#f3d98f,#875f17,#fff,#c9a24b,#f3d98f);animation:spin 6s linear infinite}
 @property --a{syntax:"<angle>";initial-value:0deg;inherits:false}@keyframes spin{to{--a:360deg}}
-.collage{height:250px;max-width:560px;margin:8px 0 24px}.collage img{border-width:4px}.collage img:nth-child(1){width:175px;height:190px;top:30px}.collage img:nth-child(2){left:165px;width:215px;height:230px}.collage img:nth-child(3){left:365px;width:175px;height:190px;top:34px}
+.collage{height:235px;max-width:560px;margin:4px 0 20px}.collage img{border-width:4px}.collage img:nth-child(1){width:175px;height:190px;top:30px}.collage img:nth-child(2){left:165px;width:215px;height:230px}.collage img:nth-child(3){left:365px;width:175px;height:190px;top:34px}
 .collage .fl{position:absolute;z-index:5;background:#fff;border-radius:14px;padding:8px 13px;font-size:13px;font-weight:700;box-shadow:0 12px 28px rgba(0,0,0,.18);animation:bob 4s ease-in-out infinite}.collage .f1{left:6px;bottom:-6px}.collage .f2{right:0;top:-8px;animation-delay:-2s}@keyframes bob{50%{transform:translateY(-8px)}}
 .collage .fl b{color:var(--gold)}
 .band{background:#fff;padding:16px 0;overflow:hidden;border-block:1px solid var(--line)}.band .row{display:flex;gap:14px;width:max-content;animation:slide 60s linear infinite}.band .row+.row{margin-top:14px;animation-direction:reverse;animation-duration:70s}
@@ -186,6 +186,14 @@ footer{padding:34px 0 110px;text-align:center;font-size:13px;color:var(--mut);bo
 .sh h2::after{content:"";display:block;width:70px;height:4px;border-radius:4px;background:linear-gradient(90deg,#c9a24b,#875f17);margin:14px auto 0;transform:scaleX(0);transition:transform .8s .3s}.sh.in h2::after{transform:scaleX(1)}
 .kc,.tp .vis,.rj figure,.yt{transition:transform .5s,box-shadow .5s}.rj figure:hover,.yt:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(135,95,23,.28)}
 @media(max-width:900px){.stats .g{grid-template-columns:1fr 1fr;row-gap:24px}.facts{grid-template-columns:1fr}.dbar{display:none}.band img{width:170px;height:115px}.collage{display:block;height:200px;max-width:100%;margin-top:24px}.collage img:nth-child(1){left:0;width:34%;height:150px}.collage img:nth-child(2){left:31%;width:38%;height:185px}.collage img:nth-child(3){left:66%;width:34%;height:150px}.hc2 .proof{margin-top:6px}.qa .box{padding:22px}}
+
+.opts.list{grid-template-columns:1fr;gap:9px}.op.row{display:flex;align-items:center;gap:14px;padding:8px 14px;border-radius:16px}.op.row .ic{width:42px;height:42px;border-radius:13px;background:#f3e6c4;color:#875f17;display:grid;place-items:center;flex:none}.op.row .ic svg{width:25px;height:25px}.op.row .tx{padding:0;font-size:15.5px;font-weight:700;flex:1}.op.row::after{content:"›";font-size:26px;color:#c9a24b;line-height:1;margin-right:4px;transition:transform .2s}.op.row:hover::after{transform:translateX(4px)}.op.row:hover .ic{background:#875f17;color:#fff}
+.teaser{display:flex;align-items:center;gap:14px;margin-top:14px;padding:12px 14px;border-radius:16px;background:#231808;color:#f6efe0}.teaser b{display:block;font-size:14.5px;color:#f3d98f}.teaser span{font-size:12.5px;color:#d8c9a8;line-height:1.4;display:block;margin-top:2px}.teaser .mini{flex:none;width:46px;height:58px;border-radius:6px 10px 10px 6px;background:linear-gradient(160deg,#fffaf0,#efe0b8);display:grid;place-items:center;box-shadow:-4px 4px 10px rgba(0,0,0,.4);position:relative}.teaser .mini b{color:#875f17;font-size:11px}
+.tr3{display:flex;justify-content:space-between;gap:8px;margin-top:12px;font-size:12.5px;color:#7a6a4c;flex-wrap:wrap}.tr3 b{color:#875f17;font-size:15px}
+.pills{padding:22px 0 8px}.pills ul{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.pills li{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 16px;font-weight:600;font-size:14.5px;display:flex;gap:10px;align-items:center;box-shadow:0 8px 20px rgba(135,95,23,.08)}.pills li::before{content:"✓";flex:none;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#f3d98f,#c9a24b);color:#231808;display:grid;place-items:center;font-size:13px;font-weight:800}
+.hero .quiz{align-self:center}.hero .g{align-items:center}
+@media(max-width:900px){.pills ul{grid-template-columns:1fr 1fr}.pills li{padding:11px 12px;font-size:13px}.hero .quiz{align-self:start}}
+@media(max-width:520px){.pills ul{grid-template-columns:1fr}}
 @media(max-width:900px){.hero .g{grid-template-areas:"a" "q" "b";gap:22px 0;grid-template-columns:1fr}section{padding:56px 0}.hero{padding-top:26px}.tp.on,.gd .g,.doc .g,.lg{grid-template-columns:1fr}.kg,.rj,.cg{grid-template-columns:1fr 1fr}.yg{grid-template-columns:1fr 1fr}.sg,.tl{grid-template-columns:1fr 1fr;row-gap:34px}.tl::before{display:none}.sb{display:flex}.fab,.glow{display:none}.top .btn.hide-m{display:none}.tp{padding:18px}.tp .vis{min-height:240px}.rvg{grid-template-columns:1fr}}
 @media(max-width:520px){.top img{height:34px}.kg{gap:10px}.kc b{font-size:15px}.kc .t{padding:12px}.rj{grid-template-columns:1fr}.yg{grid-template-columns:1fr}.sg{grid-template-columns:1fr}.opts{gap:8px}.rc{width:210px}.row2{grid-template-columns:1fr}.quiz{padding:20px 16px}.hero .sub{font-size:16px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv-up{opacity:1;transform:none}}
@@ -261,7 +269,12 @@ document.addEventListener('mouseout',e=>{if(!shown&&e.clientY<=0&&innerWidth>900
 """
 
 
+IC1 = {"rec1": "hairline", "crown": "crown", "hair_a": "overall", "beard2": "beard", "repair": "repair", "female": "female"}
 ICON = {
+ "hairline": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11c0-4 3-7 7-7s7 3 7 7v8H5z"/><path d="M5 11c3-1.500 5-4 7-4s4 2.500 7 4"/></svg>',
+ "crown": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.500"/><path d="M12 4v2M12 18v2M4 12h2M18 12h2"/></svg>',
+ "overall": '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="6" r="1.600"/><circle cx="12" cy="6" r="1.600"/><circle cx="18" cy="6" r="1.600"/><circle cx="6" cy="12" r="1.600"/><circle cx="12" cy="12" r="1.600" opacity=".4"/><circle cx="18" cy="12" r="1.600"/><circle cx="6" cy="18" r="1.600" opacity=".4"/><circle cx="12" cy="18" r="1.600"/><circle cx="18" cy="18" r="1.600" opacity=".4"/></svg>',
+ "beard": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8c0-3 2.500-5 6-5s6 2 6 5v3c0 5-3 9-6 9s-6-4-6-9z"/><path d="M8 13c1.500 1.500 2.500 2 4 2s2.500-.5 4-2"/></svg>',
  "repair": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L3 17.800 6.200 21l6.300-6.300a4 4 0 0 0 5.200-5.400l-2.600 2.600-2.400-.6-.6-2.400z"/></svg>',
  "female": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M12 14v7M9 18h6"/></svg>',
  "now": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>',
@@ -325,17 +338,13 @@ def build(t):
     A('<section class="hero"><div class="wrap g"><div class="hc1"><span class="eyebrow"><i></i>%s</span><h1><span class="a">%s</span> %s</h1><p class="typed" id="typed" aria-hidden="true">%s <b>%s</b></p><p class="sub">%s</p></div>' % (t["eyebrow"], t["h1a"], t["h1b"], t["typed_pre"], t["typed"][0], t["sub"]))
     COLL = '<div class="collage"><img src="%s" width="175" height="190" alt="Receding hairline before transplant" fetchpriority="high"><img src="%s" width="215" height="230" alt="Hairline design marked before a Bloom hair transplant"><img src="%s" width="175" height="190" alt="Crown thinning before treatment"><span class="fl f1"><b>4.9</b> Google</span><span class="fl f2">Doctor-led</span></div>' % (IM("rec1"), ai("hero") or IM("ba_mark"), IM("crown"))
     CTA = '<div class="cta-row" style="margin:6px 0 4px"><a class="btn b-gold" href="tel:%s" data-ev="call">%s %s</a><a class="btn b-wa" href="%s" target="_blank" rel="noopener" data-ev="whatsapp">%s %s</a></div>' % (PHONE_TEL, PH, t["cta_call"], wa_hello, WA, t["cta_wa"])
-    HC2 = ['<div class="hc2">' + COLL + CTA + '<ul class="ul">']
-    for b_ in t["bullets"]:
-        HC2.append("<li>%s</li>" % b_)
-    HC2.append('</ul><div class="proof"><div><b>%s</b><span>%s</span></div><div><b>%s</b><span>%s</span></div><div><b>%s</b><span>%s</span></div></div>' % (t["trust1"], t["trust1l"], t["trust2"], t["trust2l"], t["trust3"], t["trust3l"]))
-    HC2.append('</div>')
+    HC2 = ['<div class="hc2">' + COLL + CTA + '</div>']
     A('<div class="quiz" id="quiz"><div class="hd"><span>%s</span><small>%s</small></div><div class="pbar"><i></i></div>' % (t["q_title"], t["q_sub"].replace("{n}", "1")))
-    A('<div class="step on"><h3>%s</h3><div class="opts">' % t["q1"])
+    A('<div class="step on"><h3>%s</h3><div class="opts list">' % t["q1"])
     for val, lab, img in t["q1opts"]:
-        vis = ('<img src="%s" alt="%s">' % (ai(img), esc(lab)) if ai(img) else '<div class="e">%s</div>' % ICON[img]) if img in ("repair", "female") else '<img src="%s" alt="%s">' % (IM(img), esc(lab))
-        A('<button type="button" class="op" data-q1 data-v="%s">%s<span>%s</span></button>' % (esc(val), vis, lab))
-    A('</div></div><div class="step"><h3>%s</h3><h4>%s</h4><div class="chips">' % (t["q2"], t["q2a"]))
+        A('<button type="button" class="op row" data-q1 data-v="%s"><span class="ic">%s</span><span class="tx">%s</span></button>' % (esc(val), ICON[IC1[img]], lab))
+    A('</div><div class="teaser"><div class="mini"><i></i><b>PDF</b></div><div><b>%s</b><span>%s</span></div></div><div class="tr3"><span><b>%s</b> %s</span><span><b>%s</b> %s</span><span><b>%s</b> %s</span></div>' % (t["g_title"], t["g_pts"][0] + " · " + t["g_pts"][1], t["trust1"], t["trust1l"], t["trust2"], t["trust2l"], t["trust3"], t["trust3l"]))
+    A('</div><div class="step"><h3>%s</h3><h4>%s</h4><div class="chips">' % (t["q2"], t["q2a"]))
     for o in t["q2aopts"]:
         A('<button type="button" class="chip" data-since data-v="%s">%s</button>' % (esc(o), o))
     A('</div><h4>%s</h4><div class="chips">' % t["q2b"])
@@ -355,6 +364,7 @@ def build(t):
     A('<button class="btn b-gold pulse" style="width:100%%" type="submit">%s</button><p class="note">%s</p><div class="nav"><button type="button" class="btn back" data-back>←</button></div></form></div>' % (t["f_btn"], t["f_consent"]))
     A('<div class="done"><div class="ck">✓</div><h3 id="done-title"></h3><p id="done-sub"></p><a class="btn b-wa" id="done-wa" target="_blank" rel="noopener" data-ev="whatsapp">%s %s</a><small>%s</small><a class="btn b-gold" href="%s" download data-ev="guide">%s</a><a class="btn b-line" style="color:#875f17;border-color:#c9a24b" href="tel:%s" data-ev="call">%s</a></div></div>' % (WA, t["done_wa"], t["done_wa_sub"], t["guide"], t["done_guide"], PHONE_TEL, t["done_call"]))
     A("".join(HC2) + "</div></div></section>")
+    A('<div class="pills"><div class="wrap"><ul>' + "".join("<li>%s</li>" % x for x in t["bullets"]) + "</ul></div></div>")
     band = ["top1", "side1", "ba_mark", "beard1", "crown", "hair_b", "ba_result", "rec1", "strand", "top4", "harvest", "prof", "ba_before", "donor", "grow", "beard2", "exam", "follicle"]
     r1 = "".join('<img src="%s" width="230" height="150" alt="%s">' % (IM(n), "Hair loss and transplant detail at Bloom Hair Transplant") for n in band[:9])
     r2 = "".join('<img src="%s" width="230" height="150" alt="%s">' % (IM(n), "Hair transplant case frame from Bloom Hair Transplant") for n in band[9:])
