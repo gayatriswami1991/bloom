@@ -16,7 +16,11 @@ Two static pages, no framework, no build step needed to deploy.
 2. Point ads to `/lp/` (English) or `/lp/mr.html` (Marathi).
 3. Optional but recommended: run `python3 fetch_site_images.py` on a machine that can reach bloomhairtransplant.com, then `python3 build.py`. It stores the logo, doctor photo and before/after pairs locally in `assets/site/`; otherwise they hotlink from the website.
 
+## Free-guide pop-up (name + email, PDF e-mailed)
+Every "Get the free guide" button opens a pop-up asking name, email and optional mobile; "Skip, just download" gives the PDF directly. A static page cannot send e-mail by itself, so the pop-up POSTs `{type:"guide", name, email, phone, lang, guide_url, utm_*, gclid}` to `GUIDE_ENDPOINT` (falls back to `FORM_ENDPOINT`). Ready-made backend: `integrations/guide-email-apps-script.gs` (Google Apps Script: saves to a Sheet, e-mails the PDF as attachment, notifies the clinic; setup steps are in the file header). Until an endpoint is set, the pop-up still downloads the PDF and does not claim an e-mail was sent. The PDF URL must be public (`BASE_URL` + `guide-en.pdf`) for the e-mail attachment. Quiz leads use the same endpoint with `type:"assessment"`.
+
 ## Things to configure (top of `build.py`)
+- `GUIDE_ENDPOINT` — optional separate endpoint for the guide pop-up.
 - `FORM_ENDPOINT` — leads from the 4-step quiz. Empty = the result screen shows a "Send details on WhatsApp" button (WhatsApp prefilled). Set a URL (Zoho Flow / Apps Script / Formspree / your API) and the quiz POSTs JSON (`text/plain`, `no-cors`): `name, phone, clinic, time, concern, since, age, timing, prev, lang, page, utm_source, utm_medium, utm_campaign, utm_term, gclid`.
 - `BASE_URL` — empty keeps the pages `noindex` (safe for ads). Set the final folder URL (with trailing slash) to make them indexable with canonical, hreflang and absolute Open Graph URLs.
 - `CELEB_URLS` / `assets/celeb/` — award/event photos. `assets/ai/{repair,female,eyebrow,hero}.jpg` are optional image slots.

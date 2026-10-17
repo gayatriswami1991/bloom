@@ -13,6 +13,7 @@ from content import EN, MR, PHONE_DISPLAY, PHONE_TEL, PHONE_WA
 FORM_ENDPOINT = ""   # Zoho / Apps Script / Formspree URL. Empty = result screen shows a 1-tap "Send details on WhatsApp" button.
 BASE_URL = ""        # Final public folder URL of these pages, e.g. "https://bloomhairtransplant.com/lp/". Empty = pages stay noindex (safe for ads-only use).
                      # When set: pages become indexable with canonical + hreflang + JSON-LD (good for SEO/AEO).
+GUIDE_ENDPOINT = ""  # Where guide-popup leads (name + email) are sent so the PDF can be e-mailed. Empty = uses FORM_ENDPOINT. See integrations/guide-email-apps-script.gs
 CELEB_URLS = []      # e.g. ["https://bloomhairtransplant.com/wp-content/uploads/....jpg"]
 SITE = "https://bloomhairtransplant.com"
 UP = SITE + "/wp-content/uploads/"
@@ -135,6 +136,7 @@ img,video,svg{max-width:100%;display:block}a{color:inherit;text-decoration:none}
 .gd{background:linear-gradient(135deg,#c9a24b,#7a5410);color:#fff}.gd .g{display:grid;grid-template-columns:.8fr 1.2fr;gap:44px;align-items:center}
 .book{width:min(300px,80%);aspect-ratio:3/4.1;margin:0 auto;border-radius:10px 20px 20px 10px;background:linear-gradient(160deg,#fffaf0,#efe0b8);color:#231808;padding:26px 22px;box-shadow:-14px 18px 40px rgba(0,0,0,.5),inset 6px 0 0 rgba(0,0,0,.1);transform:perspective(900px) rotateY(-14deg);transition:transform .5s;display:flex;flex-direction:column;position:relative;overflow:hidden}
 .book:hover{transform:perspective(900px) rotateY(0)}.book img{border-radius:12px;height:44%;object-fit:cover;margin-bottom:14px}.book small{font-weight:700;letter-spacing:1px;color:#875f17;font-size:11px;text-transform:uppercase}.book b{font:800 27px/1.1 var(--hf);margin:4px 0 6px}.book em{font-size:12px;color:#5b4a2a;font-style:normal;margin-top:auto}
+.gbx{max-width:440px;width:100%;text-align:left}.gbx h3{text-align:center}.gbx p{text-align:center}.gbx .fld{margin-bottom:10px}.gbx input{width:100%;padding:14px 16px;border:2px solid #e3d4b1;border-radius:13px;font:500 15.5px var(--bf);background:#fff;color:#231808;outline:0}.gbx input:focus{border-color:#c9a24b}.gbx .err{display:none;color:#c0392b;font-size:13px;margin:-3px 0 8px}.gbx .note{font-size:11.5px;color:#7a6a4c;margin:10px 0 0;text-align:center}.skip{display:block;margin:12px auto 0;background:none;border:0;color:#875f17;font:700 14px var(--bf);text-decoration:underline;cursor:pointer}.gbx #gm-ok{text-align:center}.gbx .ck{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#2fe38a,#12a85e);color:#fff;display:grid;place-items:center;font-size:32px;margin:0 auto 12px}.gbx #gm-ok .btn{width:100%}
 .gnote{margin-top:14px;font-size:14px;color:#fff;opacity:.92}.gnote a{text-decoration:underline;font-weight:700}.gd h2{font-size:clamp(28px,4vw,42px);margin-bottom:12px}.gd .ul li::before{background:#fff;color:#7a5410}.gd .b-gold{background:#fff;color:#7a5410}.gd .tag{color:#fff;border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.12)}
 .doc .g{display:grid;grid-template-columns:.8fr 1.2fr;gap:44px;align-items:center}.doc .ph{aspect-ratio:4/5;border-radius:28px;overflow:hidden;position:relative;box-shadow:0 30px 60px rgba(135,95,23,.3);border:1px solid var(--line);background:linear-gradient(160deg,#e6c477,#7a5410);min-height:320px}
 .doc .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 12%}.doc h2{font-size:clamp(28px,4vw,42px);margin-bottom:12px}.doc p{color:#5b4a2a;font-size:17px}
@@ -224,6 +226,25 @@ const confetti=()=>{const c=document.createElement('canvas');c.id='confetti';doc
 $('#qform').addEventListener('submit',()=>{if(/^[6-9]\d{9}$/.test($('#qform').phone.value.replace(/\D/g,'').replace(/^(91|0)(?=\d{10}$)/,'')))setTimeout(confetti,200)});
 """
 
+JS_GUIDE = r"""
+/* ---------- guide pop-up ---------- */
+const gm=$('#gm'),dl=u=>{const a=document.createElement('a');a.href=u;a.download='';a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove()};
+const openG=e=>{e&&e.preventDefault();md.classList.remove('on');$('#gm-form').style.display='block';$('#gm-ok').style.display='none';gm.classList.add('on');track('guide_open');setTimeout(()=>$('#gform input[name=name]').focus(),150)};
+$$('[data-guide]').forEach(a=>a.addEventListener('click',openG));
+$('.x',gm).onclick=()=>gm.classList.remove('on');gm.addEventListener('click',e=>{if(e.target===gm)gm.classList.remove('on')});
+$('#gm-dl').addEventListener('click',()=>track('guide'));
+$$('#gm [data-go]').forEach(a=>a.addEventListener('click',()=>gm.classList.remove('on')));
+const gShow=(email)=>{$('#gm-form').style.display='none';const ok=$('#gm-ok');ok.style.display='block';$('#gm-ok-t').textContent=email?CFG.okTitle:CFG.okNo;$('#gm-ok-s').innerHTML=email&&CFG.guideEndpoint?CFG.okSub.replace('{email}',email):'';if(!(email&&CFG.guideEndpoint)){$('#gm-ok-t').textContent=CFG.okNo}};
+$('#gm-skip').addEventListener('click',()=>{track('guide_skip');dl(CFG.guide);gShow('')});
+$('#gform').addEventListener('submit',e=>{e.preventDefault();const f=e.target,email=f.email.value.trim(),err=$('.err',f);
+ if(!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)){err.style.display='block';f.email.focus();return}err.style.display='none';
+ const p=new URLSearchParams(location.search),abs=new URL(CFG.guide,location.href).href,
+ data={type:'guide',name:f.name.value.trim(),email,phone:f.phone.value.replace(/\D/g,''),lang:CFG.lang,guide_url:abs,page:location.href,utm_source:p.get('utm_source')||'',utm_medium:p.get('utm_medium')||'',utm_campaign:p.get('utm_campaign')||'',utm_term:p.get('utm_term')||'',gclid:p.get('gclid')||''};
+ track('guide_lead');dl(CFG.guide);
+ if(CFG.guideEndpoint){fetch(CFG.guideEndpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(data)}).catch(()=>{})}
+ gShow(email)});
+"""
+
 JS = r"""
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const track=(e,x={})=>{try{(window.dataLayer=window.dataLayer||[]).push({event:'lp_'+e,lang:CFG.lang,...x});if(window.gtag)gtag('event','lp_'+e,x);if(window.fbq&&e==='lead')fbq('track','Lead')}catch(_){}};
@@ -248,7 +269,7 @@ $$('[data-go]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();md.
 $('#qform').addEventListener('submit',async e=>{e.preventDefault();const f=e.target,phone=f.phone.value.replace(/\D/g,'').replace(/^(91|0)(?=\d{10}$)/,''),err=$('.err',f);
  if(!/^[6-9]\d{9}$/.test(phone)){err.style.display='block';f.phone.focus();return}err.style.display='none';
  const name=f.name.value.trim()||'-',clinic=f.clinic.value,time=f.time.value,p=new URLSearchParams(location.search);
- const data={name,phone,clinic,time,...A,lang:CFG.lang,page:location.href,utm_source:p.get('utm_source')||'',utm_medium:p.get('utm_medium')||'',utm_campaign:p.get('utm_campaign')||'',utm_term:p.get('utm_term')||'',gclid:p.get('gclid')||''};
+ const data={type:'assessment',name,phone,clinic,time,...A,lang:CFG.lang,page:location.href,utm_source:p.get('utm_source')||'',utm_medium:p.get('utm_medium')||'',utm_campaign:p.get('utm_campaign')||'',utm_term:p.get('utm_term')||'',gclid:p.get('gclid')||''};
  track('lead',{concern:A.concern,timing:A.timing});
  const msg=CFG.waMsg.replace('{name}',name).replace('{phone}',phone).replace('{concern}',A.concern).replace('{since}',A.since).replace('{age}',A.age).replace('{timing}',A.timing).replace('{prev}',A.prev).replace('{clinic}',clinic).replace('{time}',time);
  $('#done-wa').href='https://wa.me/'+CFG.waNumber+'?text='+encodeURIComponent(msg);
@@ -343,7 +364,7 @@ def build(t):
     A('<div class="step on"><h3>%s</h3><div class="opts list">' % t["q1"])
     for val, lab, img in t["q1opts"]:
         A('<button type="button" class="op row" data-q1 data-v="%s"><span class="ic">%s</span><span class="tx">%s</span></button>' % (esc(val), ICON[IC1[img]], lab))
-    A('</div><a class="teaser" href="%s" download data-ev="guide"><div class="mini"><i></i><b>PDF</b></div><div><b>%s</b><span>%s</span></div></a><div class="tr3"><span><b>%s</b> %s</span><span><b>%s</b> %s</span><span><b>%s</b> %s</span></div>' % (t["guide"], t["g_title"], t["g_pts"][0] + " · " + t["g_pts"][1], t["trust1"], t["trust1l"], t["trust2"], t["trust2l"], t["trust3"], t["trust3l"]))
+    A('</div><a class="teaser" href="#" data-guide><div class="mini"><i></i><b>PDF</b></div><div><b>%s</b><span>%s</span></div></a><div class="tr3"><span><b>%s</b> %s</span><span><b>%s</b> %s</span><span><b>%s</b> %s</span></div>' % (t["g_title"], t["g_pts"][0] + " · " + t["g_pts"][1], t["trust1"], t["trust1l"], t["trust2"], t["trust2l"], t["trust3"], t["trust3l"]))
     A('</div><div class="step"><h3>%s</h3><h4>%s</h4><div class="chips">' % (t["q2"], t["q2a"]))
     for o in t["q2aopts"]:
         A('<button type="button" class="chip" data-since data-v="%s">%s</button>' % (esc(o), o))
@@ -385,7 +406,7 @@ def build(t):
     A('<div class="cmp rv-up"><table><caption>%s</caption><tr>%s</tr>%s</table></div>' % (t["cmp_title"], "".join("<th>%s</th>" % x for x in t["cmp_th"]), "".join("<tr>%s</tr>" % "".join("<td>%s</td>" % x for x in r) for r in t["cmp_rows"])))
     A('</div></section><section><div class="wrap"><div class="sh rv-up"><span class="tag">%s</span><h2>%s</h2><p>%s</p></div><div class="rj">' % (t["r_tag"], t["r_title"], t["r_sub"]))
     for i, (img, cap) in enumerate(t["r_steps"]):
-        A('<figure class="rv-up" data-n="%d"><img src="%s" alt="%s"><figcaption>%s</figcaption></figure>' % (i + 1, IM(img), cap, cap))
+        A('<figure class="rv-up" data-n="%d"><img src="%s" alt="%s" onerror="this.onerror=null;this.src=this.src.replace(\'case-before\',\'ba_before\').replace(\'case-design\',\'ba_mark\').replace(\'case-result\',\'ba_result\')"><figcaption>%s</figcaption></figure>' % (i + 1, IM(img), cap, cap))
     A('</div><div class="ba-tabs">')
     for i in range(len(BA)):
         A('<button data-i="%d"%s>%d</button>' % (i, ' class="on"' if i == 0 else "", i + 1))
@@ -406,7 +427,7 @@ def build(t):
     A('<section class="gd"><div class="wrap g"><div class="rv-up"><div class="book"><img src="%s" alt=""><small>Bloom Hair Transplant</small><b>%s<br>%s</b><em>%s</em></div></div><div class="rv-up"><span class="tag">%s</span><h2>%s</h2><ul class="ul">' % (IM("top2"), t["g_cover1"], t["g_cover2"], t["g_cover3"], t["g_tag"], t["g_title"]))
     for p in t["g_pts"]:
         A("<li>%s</li>" % p)
-    A('</ul><a class="btn b-gold pulse" href="%s" download data-ev="guide">%s</a><p class="gnote">%s <a href="#quiz" data-go>%s</a></p></div></div></section>' % (t["guide"], t["g_cta"], t["g_note"], t["g_alt"]))
+    A('</ul><a class="btn b-gold pulse" href="#" data-guide>%s</a><p class="gnote">%s <a href="#quiz" data-go>%s</a></p></div></div></section>' % (t["g_cta"], t["g_note"], t["g_alt"]))
     A('<section class="doc"><div class="wrap"><div class="g"><div class="ph rv-up"><img src="%s" alt="Dr. Vinod Sonawane" width="670" height="838"></div><div class="rv-up"><span class="tag">%s</span><h2>%s</h2><p>%s</p><ul class="ul">' % (DOCTOR, t["d_tag"], t["d_title"], t["d_text"]))
     for p in t["d_pts"]:
         A("<li>%s</li>" % p)
@@ -437,9 +458,10 @@ def build(t):
     A('<nav class="sb"><a class="c" href="tel:%s" data-ev="call">%s%s</a><a class="w" href="%s" target="_blank" rel="noopener" data-ev="whatsapp">%s%s</a><button class="b" data-go>%s%s</button></nav>' % (PHONE_TEL, PH, t["sb_call"], wa_hello, WA, t["sb_wa"], AS, t["sb_go"]))
     A('<div class="dbar" id="dbar"><span>%s</span><a class="btn b-gold" href="#quiz" data-go>%s</a><a class="btn b-wa" href="%s" target="_blank" rel="noopener" data-ev="whatsapp">%s</a></div>' % (t["e_title"], t["e_start"], wa_hello, WA))
     A('<a class="fab" href="%s" target="_blank" rel="noopener" aria-label="WhatsApp" data-ev="whatsapp">%s</a>' % (wa_hello, WA))
+    A('<div class="md" id="gm"><div class="bx gbx"><button class="x" aria-label="Close">\u00d7</button><div id="gm-form"><h3>%s</h3><p>%s</p><form id="gform" novalidate><div class="fld"><input name="name" placeholder="%s" autocomplete="name"></div><div class="fld"><input name="email" type="email" placeholder="%s" autocomplete="email" required></div><div class="err">%s</div><div class="fld"><input name="phone" type="tel" inputmode="numeric" maxlength="14" placeholder="%s" autocomplete="tel"></div><button class="btn b-gold pulse" style="width:100%%" type="submit">%s</button><p class="note">%s</p><button type="button" class="skip" id="gm-skip">%s</button></form></div><div id="gm-ok" style="display:none"><div class="ck">\u2713</div><h3 id="gm-ok-t"></h3><p id="gm-ok-s"></p><a class="btn b-gold" id="gm-dl" href="%s" download target="_blank" rel="noopener">%s</a><a class="btn b-line" style="color:#875f17;border-color:#c9a24b;margin-top:10px" href="#quiz" data-go>%s</a></div></div></div>' % (t["gm_title"], t["gm_sub"], t["gm_name"], t["gm_email"], t["gm_err"], t["gm_phone"], t["gm_btn"], t["gm_consent"], t["gm_skip"], t["guide"], t["gm_dl"], t["gm_plan"]))
     A('<div class="md" id="md"><div class="bx"><button class="x" aria-label="Close">×</button><h3>%s</h3><p>%s</p><a class="btn b-gold" style="width:100%%" href="#quiz" data-go>%s</a></div></div>' % (t["x_title"], t["x_sub"], t["x_cta"]))
-    cfg = dict(endpoint=FORM_ENDPOINT, waNumber=PHONE_WA, waMsg=t["wa_msg"], ba=BA, lang=t["lang"], stepLabel=t["q_sub"], doneTitle=t["done_title"], doneSub=t["done_sub"], prevDefault=t["q3bopts"][0], typed=t["typed"])
-    A("<script>const CFG=%s;%s</script></body></html>" % (json.dumps(cfg, ensure_ascii=False), JS + JS_ADD))
+    cfg = dict(endpoint=FORM_ENDPOINT, waNumber=PHONE_WA, waMsg=t["wa_msg"], ba=BA, lang=t["lang"], stepLabel=t["q_sub"], doneTitle=t["done_title"], doneSub=t["done_sub"], prevDefault=t["q3bopts"][0], typed=t["typed"], guide=((BASE_URL + t["guide"]) if BASE_URL else t["guide"]), guideEndpoint=(GUIDE_ENDPOINT or FORM_ENDPOINT), okTitle=t["gm_ok_title"], okSub=t["gm_ok_sub"], okNo=t["gm_ok_noemail"])
+    A("<script>const CFG=%s;%s</script></body></html>" % (json.dumps(cfg, ensure_ascii=False), JS + JS_ADD + JS_GUIDE))
     return "".join(h)
 
 
